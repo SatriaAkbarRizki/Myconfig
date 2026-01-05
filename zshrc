@@ -59,3 +59,15 @@ export CHROME_EXECUTABLE=/usr/bin/thorium-browser
 # cd Android/cmdline-tools/tools
 # install additional  here, but personalize with your api device version
 # sdkmanager "platform-tools" "platforms;android-32" "build-tools;32.0.0"
+#
+# Recommend using waydroid A13 and flutter version 3.38.5+ (or latest), if you using this so you need install only this
+# - ndk;28.2.13676358
+# - build-tools;34.0.0
+# - build-tools;35.0.0
+# - platforms;android-34
+# - platforms;android-35
+# - platforms;android-36
+# - 
+#
+#
+
