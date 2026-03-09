@@ -1,39 +1,76 @@
-# === Custom my config zshrc ===
-# === Select what you want ===
+export ZSH="$HOME/.oh-my-zsh"
 
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="solus"
 
-# Funtion easy open nvim
+# My Plugin
+plugins=(
+  zsh-autosuggestions
+)
+
+# Function
 svim() {
     sudo -E nvim "$@"
 }
 
-# Functio easy for productive build mobile
-modemobile(){
-	sudo systemctl stop mariadb
-	code --profile profile-flutter
-	waydroid session start
+systatus(){
+  sudo systemctl status "$@"
+}
+
+syenable(){
+  sudo systemctl enable "$@"
+}
+
+sydisable(){
+  sudo systemctl disable "$@"
+}
+
+systop(){
+  sudo systemctl stop "$@"
+}
+
+systart(){
+  sudo systemctl start "$@"
+}
+
+checkDisk(){
+  if [ $# -lt 1 ]
+  then
+    echo "Usage: $funcstack[1] <first-argument>"
+    return
+  fi
+
+  echo "CHecking usage disk: $1"
+  sudo du -h $1 | sort -hr | head -20
+
+}
+
+modeMobile(){
+   code --profile profile-flutter
+   waydroid session start
 }
 
 
-autoload -U compinit
-compinit
+
+# Setup env for pyenv(can multi version python)
+#echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+#echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+#echo 'eval "$(pyenv init - zsh)"' >> ~/.zshrc
 
 
-setopt COMPLETE_IN_WORD
-eval "$(starship init zsh)"
+# pyenv (load once)
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Ctrl + Arrow keybindings
+
+# Config My ZSH
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt appendhistory
-setopt SHARE_HISTORY
+source $ZSH/oh-my-zsh.sh
 
 export ANDROID=$HOME/Android
 export PATH=$ANDROID/cmdline-tools/tools/$PATH
@@ -46,28 +83,12 @@ export PATH=$ANDROID_SDK:$PATH
 export FLUTTER=$ANDROID/flutter
 export PATH=$FLUTTER/bin:$PATH
 
-export CHROME_EXECUTABLE=/usr/bin/thorium-browser
+export CHROME_EXECUTABLE=/usr/bin/zen-browser
+export PATH=$HOME/.config/composer/vendor/bin:$PATH
 
-# install flutter without android, need 2 two file
-# flutter zip
-# cmdline-tools
-#
-# And structure folder on home
-# - cmdline-tools
-# - flutter
+export TERM=xterm-256color
 
-# cd Android/cmdline-tools/tools
-# install additional  here, but personalize with your api device version
-# sdkmanager "platform-tools" "platforms;android-32" "build-tools;32.0.0"
-#
-# Recommend using waydroid A13 and flutter version 3.38.5+ (or latest), if you using this so you need install only this
-# - ndk;28.2.13676358
-# - build-tools;34.0.0
-# - build-tools;35.0.0
-# - platforms;android-34
-# - platforms;android-35
-# - platforms;android-36
-# - 
-#
-#
 
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
