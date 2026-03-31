@@ -33,6 +33,10 @@ systart(){
   sudo systemctl start "$@"
 }
 
+syrestart(){
+  sudo systemctl restart "$@"
+}
+
 checkDisk(){
   if [ $# -lt 1 ]
   then
