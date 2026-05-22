@@ -1,5 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 
+
 #ZSH_THEME="robbyrussell"
 ZSH_THEME="solus"
 
@@ -54,6 +55,9 @@ modeMobile(){
    waydroid session start
 }
 
+pkgPacmanSize(){
+ paste <(pacman -Qei | grep 'Name' | cut -d ':' -f 2) <(pacman -Qei | grep 'Size' | cut -d ':' -f 2) | awk '{ print $1, $2$3 }' | sort -k 2 -h -r
+}
 
 
 # Setup env for pyenv(can multi version python)
@@ -87,7 +91,7 @@ export PATH=$ANDROID_SDK:$PATH
 export FLUTTER=$ANDROID/flutter
 export PATH=$FLUTTER/bin:$PATH
 
-export CHROME_EXECUTABLE=/usr/bin/zen-browser
+export CHROME_EXECUTABLE=/usr/bin/brave
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
 
 export TERM=xterm-256color
