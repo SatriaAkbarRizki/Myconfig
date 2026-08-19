@@ -10,6 +10,23 @@ plugins=(
 )
 
 # Function
+
+redroid() {
+    if [[ "$1" == "up" ]]; then
+        docker-compose -f /home/xeozn/Documents/Docker/redroid/docker-compose.yml up -d
+    elif [[ "$1" == "down" ]]; then
+        docker-compose -f /home/xeozn/Documents/Docker/redroid/docker-compose.yml down
+    else
+        echo "Usage: redroid [up|down]"
+        return 1
+    fi
+}
+
+
+cls(){
+   clear
+}
+
 svim() {
     sudo -E nvim "$@"
 }
@@ -58,7 +75,6 @@ modeMobile(){
 pkgPacmanSize(){
  paste <(pacman -Qei | grep 'Name' | cut -d ':' -f 2) <(pacman -Qei | grep 'Size' | cut -d ':' -f 2) | awk '{ print $1, $2$3 }' | sort -k 2 -h -r
 }
-
 
 # Setup env for pyenv(can multi version python)
 #echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
